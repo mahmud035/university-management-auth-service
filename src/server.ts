@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Color } from 'colors';
 import config from './config/index';
 import app from './app';
-
-const colors = require('colors');
+require('colors');
 
 //* Database Connection
 const dbConnect = async () => {
@@ -15,6 +15,7 @@ const dbConnect = async () => {
     app.listen(config.port, () => {
       console.log(`Server Up and Running`.cyan.bold);
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error.name.bgRed, error.message.bold, error.stack);
   }
