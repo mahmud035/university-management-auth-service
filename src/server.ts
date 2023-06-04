@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import config from './config/index';
 import app from './app';
 import { Color } from 'colors';
+import logger from './shared/logger';
 require('colors');
 
 //* Database Connection
@@ -15,13 +16,19 @@ const dbConnect = async () => {
   try {
     await mongoose.connect(config.database_url as string);
 
-    console.log(`Database Connected`.yellow.italic);
+    logger.info(`Database Connected`);
+
+    // console.log(`Database Connected`.yellow.italic);
 
     app.listen(config.port, () => {
-      console.log(`Server Up and Running`.cyan.bold);
+      logger.info(`Server Up and Running`);
+
+      // console.log(`Server Up and Running`.cyan.bold);
     });
   } catch (error: any) {
-    console.log(console.log(error.name.bgRed, error.message.bold, error.stack));
+    logger.error(`Failed to connect database`, error);
+
+    // console.log(console.log(error.name.bgRed, error.message.bold, error.stack));
   }
 };
 
