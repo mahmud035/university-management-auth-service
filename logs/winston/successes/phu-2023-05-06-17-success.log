@@ -1,0 +1,12 @@
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T11:37:13.298Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T11:37:13.337Z'
+}

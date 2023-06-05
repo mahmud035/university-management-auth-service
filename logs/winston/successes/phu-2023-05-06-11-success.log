@@ -154,3 +154,27 @@
   label: 'PH',
   timestamp: '2023-06-05T05:18:09.421Z'
 }
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T05:18:21.773Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T05:18:21.793Z'
+}
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T05:21:23.932Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T05:21:23.950Z'
+}
