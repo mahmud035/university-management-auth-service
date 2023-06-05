@@ -1,0 +1,60 @@
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:55:14.595Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:55:14.606Z'
+}
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:55:17.691Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:55:17.709Z'
+}
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:57:16.347Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:57:16.372Z'
+}
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:57:38.615Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:57:38.631Z'
+}
+{
+  message: 'Database Connected',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:58:26.115Z'
+}
+{
+  message: 'Server Up and Running',
+  level: 'info',
+  label: 'PH',
+  timestamp: '2023-06-05T02:58:26.126Z'
+}
