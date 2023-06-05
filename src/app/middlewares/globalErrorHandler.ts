@@ -1,15 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { ErrorRequestHandler } from 'express';
 import config from '../../config/index';
-import { IGenericErrorMessage } from '../../interfaces/error';
-import handleValidationError from '../../errors/handleValidationError';
 import ApiError from '../../errors/ApiError';
+import handleValidationError from '../../errors/handleValidationError';
+import { IGenericErrorMessage } from '../../interfaces/error';
 
-const globalErrorHandler = (
-  error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500;
   let message = 'Something went wrong';
   let errorMessages: IGenericErrorMessage[] = [];
