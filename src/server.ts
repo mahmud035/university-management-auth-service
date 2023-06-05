@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import config from './config/index';
 import app from './app';
 import { Color } from 'colors';
-import logger from './shared/logger';
+import { errorLogger, logger } from './shared/logger';
 require('colors');
 
 //* Database Connection
@@ -26,7 +26,7 @@ const dbConnect = async () => {
       // console.log(`Server Up and Running`.cyan.bold);
     });
   } catch (error: any) {
-    logger.error(`Failed to connect database`, error);
+    errorLogger.error(`Failed to connect database`, error);
 
     // console.log(console.log(error.name.bgRed, error.message.bold, error.stack));
   }
