@@ -16,11 +16,8 @@ app.use(morgan('dev'));
 app.use('/api/v1/users', UserRoutes);
 
 //* Testing
-// app.get('/', (req: Request, res: Response, next: NextFunction) => {
-//   // res.send('Working Successfully ');
-//   // throw new Error('Ora baba error');
-//   throw new ApiError(400, 'Ora baba error');
-//   // next('Ora baba error'); // Error
+// app.get('/', async (req: Request, res: Response, next: NextFunction) => {
+//   Promise.reject(new Error('Unhandled Promise Rejection'));
 // });
 
 //* Global Error Handler

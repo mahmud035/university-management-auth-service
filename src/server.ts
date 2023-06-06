@@ -9,27 +9,39 @@ import config from './config/index';
 import app from './app';
 import { Color } from 'colors';
 import { errorLogger, logger } from './shared/logger';
+import { Server } from 'http';
 require('colors');
 
 //* Database Connection
 const dbConnect = async () => {
+  let server: Server;
+
   try {
     await mongoose.connect(config.database_url as string);
 
-    logger.info(`Database Connected`);
+    logger.info(`Database Connected`.yellow.italic);
 
-    // console.log(`Database Connected`.yellow.italic);
-
-    app.listen(config.port, () => {
-      logger.info(`Server Up and Running`);
-
-      // console.log(`Server Up and Running`.cyan.bold);
+    server = app.listen(config.port, () => {
+      logger.info(`Server Up and Running`.cyan.bold);
     });
   } catch (error: any) {
     errorLogger.error(`Failed to connect database`, error);
-
-    // console.log(console.log(error.name.bgRed, error.message.bold, error.stack));
   }
+
+  process.on('unhandledRejection', (error) => {
+    console.log(
+      'Unhandled Rejection is detected, we are closing our server...'
+    );
+
+    if (server) {
+      server.close(() => {
+        errorLogger.error(error);
+        process.exit(1);
+      });
+    } else {
+      process.exit(1);
+    }
+  });
 };
 
 dbConnect();
