@@ -16,8 +16,8 @@ app.use(morgan('dev'));
 app.use('/api/v1/users', UserRoutes);
 
 //* Testing
-// app.get('/', async (req: Request, res: Response, next: NextFunction) => {
-//   Promise.reject(new Error('Unhandled Promise Rejection'));
+// app.get('/', (req: Request, res: Response, next: NextFunction) => {
+//   throw new Error('Testing Error logger');
 // });
 
 //* Global Error Handler

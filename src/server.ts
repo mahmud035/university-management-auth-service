@@ -12,10 +12,18 @@ import { errorLogger, logger } from './shared/logger';
 import { Server } from 'http';
 require('colors');
 
+//* Handle Uncaught Exception
+process.on('uncaughtException', (error) => {
+  console.log('Uncaught Exception is detected...');
+
+  errorLogger.error(error);
+  process.exit(1);
+});
+
+let server: Server;
+
 //* Database Connection
 const dbConnect = async () => {
-  let server: Server;
-
   try {
     await mongoose.connect(config.database_url as string);
 
@@ -28,6 +36,7 @@ const dbConnect = async () => {
     errorLogger.error(`Failed to connect database`, error);
   }
 
+  //* Handle Unhandled Rejection
   process.on('unhandledRejection', (error) => {
     console.log(
       'Unhandled Rejection is detected, we are closing our server...'
@@ -45,3 +54,11 @@ const dbConnect = async () => {
 };
 
 dbConnect();
+
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM is received');
+
+  if (server) {
+    server.close();
+  }
+});
