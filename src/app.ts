@@ -2,7 +2,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
-import { UserRoutes } from './app/modules/Users/user.route';
+import { UserRoutes } from './app/modules/user/user.route';
 
 const app: Application = express();
 
