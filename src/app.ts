@@ -2,8 +2,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
-import { UserRoutes } from './app/modules/user/user.route';
-import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicSemester.route';
+import ApplicationRoutes from './app/routes';
 
 const app: Application = express();
 
@@ -14,8 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 //* Application Routes
-app.use('/api/v1/users', UserRoutes);
-app.use('/api/v1/academic-semesters', AcademicSemesterRoutes);
+app.use('/api/v1', ApplicationRoutes);
+
+// Before:
+// app.use('/api/v1/users', UserRoutes);
+// app.use('/api/v1/academic-semesters', AcademicSemesterRoutes);
 
 //* Testing
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {
