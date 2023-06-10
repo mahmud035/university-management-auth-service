@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 
-const catchAsync = (fn: any) => {
+const catchAsync = (fn: RequestHandler) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      fn(req, res);
+      fn(req, res, next);
     } catch (error) {
       next(error);
     }
