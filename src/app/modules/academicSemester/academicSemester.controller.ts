@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
-import { AcademicSemesterService } from './academicSemester.services';
-import catchAsync from '../../../shared/catchAsync';
-import sendResponse from '../../../shared/sendResponse';
+import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import pick from '../../../shared/pick';
 import { paginationFields } from '../../../constants/pagination';
+import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
+import sendResponse from '../../../shared/sendResponse';
 import { IAcademicSemester } from './academicSemester.interface';
+import { AcademicSemesterService } from './academicSemester.services';
 
 const createSemester = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -28,7 +28,7 @@ const createSemester = catchAsync(
 const getAllSemesters = catchAsync(async (req: Request, res: Response) => {
   const paginationOptions = pick(req.query, paginationFields);
 
-  console.log(paginationOptions);
+  // console.log(paginationOptions);
 
   const result = await AcademicSemesterService.getAllSemesters(
     paginationOptions
