@@ -1,8 +1,9 @@
 import cors from 'cors';
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import ApplicationRoutes from './app/routes';
+import httpStatus from 'http-status';
 
 const app: Application = express();
 
@@ -26,5 +27,21 @@ app.use('/api/v1', ApplicationRoutes);
 
 //* Global Error Handler
 app.use(globalErrorHandler);
+
+//* Handle Not Found Route
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(httpStatus.NOT_FOUND).json({
+    success: false,
+    message: 'Not Found',
+    errorMessages: [
+      {
+        path: req.originalUrl,
+        message: 'API not found',
+      },
+    ],
+  });
+
+  next();
+});
 
 export default app;
