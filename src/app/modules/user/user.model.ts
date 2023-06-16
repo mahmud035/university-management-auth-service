@@ -16,6 +16,18 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    student: {
+      type: Schema.Types.ObjectId,
+      ref: 'Student', // Reference with Student Model
+    },
+    // faculty: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Faculty', // Reference with Faculty Model
+    // },
+    // admin: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Admin', // Reference with Admin Model
+    // },
   },
   {
     timestamps: true,
