@@ -1,0 +1,1 @@
+Fri Jun 16 2023 5:53:34 [PH] error: Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: university-management.academicdepartments index: title_1 dup key: { title: "Department of Marketing" }
