@@ -24,8 +24,6 @@ export const generateStudentId = async (
     }${incrementedId}`;
   }
 
-  console.log(incrementedId);
-
   return incrementedId;
 };
 
