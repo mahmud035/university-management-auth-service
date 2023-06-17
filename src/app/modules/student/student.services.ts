@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SortOrder } from 'mongoose';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
@@ -5,6 +6,8 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import { studentSearchableFields } from './student.constant';
 import { IStudent, IStudentFilters } from './student.interface';
 import { Student } from './student.model';
+import ApiError from '../../../errors/ApiError';
+import httpStatus from 'http-status';
 
 const getAllStudents = async (
   filters: IStudentFilters,
@@ -105,6 +108,31 @@ const updateStudent = async (
   id: string,
   payload: Partial<IStudent>
 ): Promise<IStudent | null> => {
+  const isExist = await Student.findOne({ id });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
+  }
+
+  const { name, ...studentData } = payload;
+
+  const updatedStudentData: Partial<IStudent> = { ...studentData };
+
+  /* 
+  const name = {
+    firstName : 'Mezba', <--- update korte hobe
+    lastName : 'Persian
+  }
+  */
+
+  // dynamically handle
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach((key) => {
+      const nameKey = `name.${key}` as keyof IStudent; // `name.firstName` | `name.lastName`
+      (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+
   const result = await Student.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
