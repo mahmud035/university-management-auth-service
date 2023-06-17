@@ -11,4 +11,10 @@ router.post(
   UserController.createStudent
 );
 
+// TODO: Create Faculty
+// '/create-faculty'
+
+// TODO: Create Admin
+// '/create-admin'
+
 export const UserRoutes = router;
