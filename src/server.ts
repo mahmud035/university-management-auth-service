@@ -16,7 +16,7 @@ require('colors');
 process.on('uncaughtException', (error) => {
   console.log('Uncaught Exception is detected...');
 
-  errorLogger.error(error);
+  console.log(error);
   process.exit(1);
 });
 
@@ -27,13 +27,13 @@ const dbConnect = async () => {
   try {
     await mongoose.connect(config.database_url as string);
 
-    logger.info(`Database Connected`.yellow.italic);
+    console.log(`Database Connected`.yellow.italic);
 
     server = app.listen(config.port, () => {
-      logger.info(`Server Up and Running`.cyan.bold);
+      console.log(`Server Up and Running`.cyan.bold);
     });
   } catch (error: any) {
-    errorLogger.error(`Failed to connect database`, error);
+    console.log(`Failed to connect database`, error);
   }
 
   //* Handle Unhandled Rejection
@@ -44,7 +44,7 @@ const dbConnect = async () => {
 
     if (server) {
       server.close(() => {
-        errorLogger.error(error);
+        console.log(error);
         process.exit(1);
       });
     } else {
@@ -56,7 +56,7 @@ const dbConnect = async () => {
 dbConnect();
 
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM is received');
+  console.log('SIGTERM is received');
 
   if (server) {
     server.close();
