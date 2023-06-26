@@ -1,4 +1,5 @@
 import { Model, Types } from 'mongoose';
+import { IFaculty } from '../faculty/faculty.interface';
 import { IStudent } from '../student/student.interface';
 
 export type IUser = {
@@ -7,7 +8,7 @@ export type IUser = {
   password: string;
   student?: Types.ObjectId | IStudent;
   // TODO: create Faculty Module
-  // faculty?: Types.ObjectId | IFaculty;
+  faculty?: Types.ObjectId | IFaculty;
   // TODO: create Admin Module
   // admin?: Types.ObjectId | IAdmin;
 };
