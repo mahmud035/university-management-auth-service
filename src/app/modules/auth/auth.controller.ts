@@ -11,7 +11,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: '',
+    message: 'User logged in successfully',
     data: result,
   });
 });
@@ -19,3 +19,5 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 export const AuthController = {
   loginUser,
 };
+
+// login --> default password --> change password --> needsPasswordChange --> true | false --> default true --> then false
