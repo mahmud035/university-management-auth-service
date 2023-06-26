@@ -13,6 +13,11 @@ router.post(
 
 // TODO: Create Faculty
 // '/create-faculty'
+router.post(
+  '/create-faculty',
+  validateRequest(UserValidation.createFacultyZodSchema),
+  UserController.createFaculty
+);
 
 // TODO: Create Admin
 // '/create-admin'
