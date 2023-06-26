@@ -16,8 +16,9 @@ export type IUser = {
   admin?: Types.ObjectId | IAdmin;
 };
 
+// Instance Method
 export type IUserMethods = {
-  isUserExist(id: string): Promise<boolean>;
+  isUserExist(id: string): Promise<Partial<IUser> | null>;
   isPasswordMatched(
     givenPassword: string,
     savedPassword: string
