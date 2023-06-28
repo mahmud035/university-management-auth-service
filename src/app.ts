@@ -1,15 +1,17 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
 import morgan from 'morgan';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import ApplicationRoutes from './app/routes';
-import httpStatus from 'http-status';
 
 const app: Application = express();
 
 //* Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
