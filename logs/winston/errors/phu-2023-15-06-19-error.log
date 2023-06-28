@@ -1,2 +1,0 @@
-Thu Jun 15 2023 19:45:9 [PH] error: E11000 duplicate key error collection: university-management.academicfaculties index: title_1 dup key: { title: "Faculty of Science and Engineering" }
-Thu Jun 15 2023 19:46:28 [PH] error: AcademicFaculty validation failed: title: Path `title` is required.

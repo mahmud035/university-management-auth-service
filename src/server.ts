@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
@@ -8,15 +7,12 @@ import mongoose from 'mongoose';
 import config from './config/index';
 import app from './app';
 import { Color } from 'colors';
-import { errorLogger, logger } from './shared/logger';
 import { Server } from 'http';
 require('colors');
 
 //* Handle Uncaught Exception
 process.on('uncaughtException', (error) => {
-  console.log('Uncaught Exception is detected...');
-
-  console.log(error);
+  console.log(`Uncaught Exception is detected...`, error);
   process.exit(1);
 });
 
@@ -39,7 +35,8 @@ const dbConnect = async () => {
   //* Handle Unhandled Rejection
   process.on('unhandledRejection', (error) => {
     console.log(
-      'Unhandled Rejection is detected, we are closing our server...'
+      `Unhandled Rejection is detected, we are closing our server...`,
+      error
     );
 
     if (server) {
