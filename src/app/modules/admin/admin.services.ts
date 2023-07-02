@@ -65,6 +65,7 @@ const getAllAdmins = async (
   };
 };
 
+// FIXME: `populate isn't working as expected`
 const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
   const result = await Admin.findOne({ id }).populate('ManagementDepartment');
   return result;
