@@ -7,11 +7,11 @@ import config from '../../config';
 import ApiError from '../../errors/ApiError';
 import { jwtHelper } from '../../helpers/jwtHelper';
 
-// NOTE: Extends Express Request object with 'user' property
+// IMPORTANT: Extends Express Request object with 'user' property
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload | null | string;
+      user?: JwtPayload | null;
     }
   }
 }
@@ -20,7 +20,7 @@ const auth =
   (...requiredRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(requiredRoles);
+      // console.log(requiredRoles);
 
       //* (i) get authorization token
       const token = req.headers.authorization;
@@ -36,10 +36,14 @@ const auth =
       verifiedUser = jwtHelper.verifyToken(
         token,
         config.jwt.access_token_secret as Secret
-      );
+      ) as JwtPayload;
+      // console.log(verifiedUser);
+      req.user = verifiedUser; // 'role', 'userId' ache.
 
-      console.log(verifiedUser);
-      req.user = verifiedUser; // role, userId
+      //? role diye guard korar jonno
+      if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
+        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+      }
 
       next();
     } catch (error) {
