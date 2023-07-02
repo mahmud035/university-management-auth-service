@@ -72,7 +72,7 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
     throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
   }
 
-  const { userId } = verifiedToken;
+  const { userId } = verifiedToken; // role, userId ache.
 
   // user delete hoye geche, kintu token ekhono roye geche.
   //* (ii) checking deleted user's refreshToken
