@@ -75,6 +75,11 @@ UserSchema.pre('save', async function (next) {
     Number(config.bcrypt_salt_rounds)
   );
 
+  // NOTE: (For 19-4 Alternative way to change password)
+  if (!user.needsPasswordChange) {
+    user.passwordChangedAt = new Date();
+  }
+
   next();
 });
 

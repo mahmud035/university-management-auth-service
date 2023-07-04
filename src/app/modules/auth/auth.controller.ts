@@ -63,10 +63,29 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const changePasswordAlternativeWay = catchAsync(
+  async (req: Request, res: Response) => {
+    const user = req.user;
+    const { ...passwordData } = req.body;
+
+    // console.log(req.user);
+    // console.log(passwordData);
+
+    await AuthService.changePasswordAlternativeWay(user, passwordData);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Password changed successfully',
+    });
+  }
+);
+
 export const AuthController = {
   loginUser,
   refreshToken,
   changePassword,
+  changePasswordAlternativeWay,
 };
 
 // login --> default password --> change password --> needsPasswordChange --> true | false --> default true --> then false

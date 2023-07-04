@@ -109,7 +109,7 @@ const changePassword = async (
   payload: IChangePassword
 ): Promise<void> => {
   const { oldPassword, newPassword } = payload;
-  console.log({ userFromToken });
+  // console.log({ userFromToken });
 
   //* (i) Check user exists or not
   // creating instance of User
@@ -147,8 +147,47 @@ const changePassword = async (
   await User.findOneAndUpdate(query, updatedData);
 };
 
+// WARNING: NOTE: 19-4 Alternative way to change password.
+
+const changePasswordAlternativeWay = async (
+  userFromToken: JwtPayload | null | undefined,
+  payload: IChangePassword
+): Promise<void> => {
+  const { oldPassword } = payload;
+  // console.log({ userFromToken });
+
+  //* (i) Check user exists or not
+  const user = new User(); // Instance Method
+
+  // This part is different from previous one
+  const isUserExist = await User.findOne({ id: userFromToken?.userId }).select(
+    '+password'
+  );
+  console.log({ isUserExist });
+
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+  }
+
+  // FIXME: 2nd time password changed isn't working properly. May be user & User er moddhe issue ache  and user.model.ts er Static Method babohar korte hobe.
+  //* (ii) Check old password is correct or not
+  if (
+    isUserExist.password &&
+    !(await user.isPasswordMatched(oldPassword, isUserExist.password))
+  ) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Old password is incorrect');
+  }
+
+  //* (iii) Data Update
+  isUserExist.needsPasswordChange = false;
+
+  //* (iv) Updating using save()
+  isUserExist.save();
+};
+
 export const AuthService = {
   loginUser,
   refreshToken,
   changePassword,
+  changePasswordAlternativeWay,
 };

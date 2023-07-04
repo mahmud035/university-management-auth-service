@@ -31,4 +31,17 @@ router.post(
   AuthController.changePassword
 );
 
+// WARNING: NOTE: 19-4 Alternative way to change password.
+router.post(
+  '/change-password-alternative-way',
+  validateRequest(AuthValidation.changePasswordZodSchema),
+  auth(
+    ENUM_USER_ROLL.SUPER_ADMIN,
+    ENUM_USER_ROLL.ADMIN,
+    ENUM_USER_ROLL.STUDENT,
+    ENUM_USER_ROLL.FACULTY
+  ),
+  AuthController.changePasswordAlternativeWay
+);
+
 export const AuthRoutes = router;
