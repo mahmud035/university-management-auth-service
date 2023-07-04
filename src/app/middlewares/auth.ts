@@ -37,6 +37,8 @@ const auth =
         token,
         config.jwt.access_token_secret as Secret
       ) as JwtPayload;
+
+      // IMPORTANT:
       // console.log(verifiedUser);
       req.user = verifiedUser; // 'role', 'userId' ache.
 

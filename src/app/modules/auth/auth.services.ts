@@ -107,8 +107,9 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
 const changePassword = async (
   userFromToken: JwtPayload | null | undefined,
   payload: IChangePassword
-) => {
+): Promise<void> => {
   const { oldPassword, newPassword } = payload;
+  console.log({ userFromToken });
 
   //* (i) Check user exists or not
   // creating instance of User
@@ -132,15 +133,18 @@ const changePassword = async (
   //* (iii) Hashed password before saving
   const newHashedPassword = await bcrypt.hash(
     newPassword,
-    config.bcrypt_salt_rounds as string
+    Number(config.bcrypt_salt_rounds)
   );
 
   //* (iv) Update password
+  const query = { id: userFromToken?.userId };
   const updatedData = {
     password: newHashedPassword,
-    newHashedPassword: false,
+    needsPasswordChange: false,
+    passwordChangedAt: new Date(),
   };
-  await User.findOneAndUpdate({ id: userFromToken?.userId }, updatedData);
+
+  await User.findOneAndUpdate(query, updatedData);
 };
 
 export const AuthService = {
