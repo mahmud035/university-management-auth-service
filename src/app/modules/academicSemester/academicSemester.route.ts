@@ -24,4 +24,4 @@ router.get('/', AcademicSemesterController.getAllSemesters);
 
 export const AcademicSemesterRoutes = router;
 
-//! IMP: Dynamic route will stay TOP of all route.
+// IMPORTANT: Dynamic route will stay TOP of all route.
