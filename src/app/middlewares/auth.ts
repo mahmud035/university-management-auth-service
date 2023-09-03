@@ -38,6 +38,16 @@ const auth =
         config.jwt.access_token_secret as Secret
       ) as JwtPayload;
 
+      // console.log(verifiedUser);
+      /*
+        {  
+          userId: 'A-00001', 
+          role: 'admin', 
+          iat: 1692797608, 
+          exp: 1701437608 
+        }
+      */
+
       // IMPORTANT:
       // console.log(verifiedUser);
       req.user = verifiedUser; // 'role', 'userId' ache.
