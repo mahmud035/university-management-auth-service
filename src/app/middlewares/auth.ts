@@ -44,7 +44,7 @@ const auth =
           userId: 'A-00001', 
           role: 'admin', 
           iat: 1692797608, 
-          exp: 1701437608 
+          exp: 1701437608  
         }
       */
 
