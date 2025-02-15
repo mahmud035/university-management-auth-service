@@ -50,8 +50,6 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
     config.jwt.refresh_token_expires_in as string
   );
 
-  // console.log(accessToken, refreshToken, needsPasswordChange);
-
   return {
     accessToken,
     refreshToken,
@@ -109,7 +107,6 @@ const changePassword = async (
   payload: IChangePassword
 ): Promise<void> => {
   const { oldPassword, newPassword } = payload;
-  // console.log({ userFromToken });
 
   //* (i) Check user exists or not
   // creating instance of User
@@ -154,7 +151,6 @@ const changePasswordAlternativeWay = async (
   payload: IChangePassword
 ): Promise<void> => {
   const { oldPassword } = payload;
-  // console.log({ userFromToken });
 
   //* (i) Check user exists or not
   const user = new User(); // Instance Method
@@ -163,7 +159,6 @@ const changePasswordAlternativeWay = async (
   const isUserExist = await User.findOne({ id: userFromToken?.userId }).select(
     '+password'
   );
-  console.log({ isUserExist });
 
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');

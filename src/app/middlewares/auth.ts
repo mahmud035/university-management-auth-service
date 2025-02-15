@@ -20,11 +20,8 @@ const auth =
   (...requiredRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // console.log(requiredRoles);
-
       //* Step 1: Get authorization token
       const token = req.headers.authorization;
-      // console.log('Get Token:', token);
 
       if (!token) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized.');
@@ -38,7 +35,6 @@ const auth =
         config.jwt.access_token_secret as Secret
       ) as JwtPayload;
 
-      // console.log(verifiedUser);
       /*
         {  
           userId: 'A-00001', 
@@ -49,7 +45,6 @@ const auth =
       */
 
       // IMPORTANT:
-      // console.log(verifiedUser);
       req.user = verifiedUser; // 'role', 'userId' ache.
 
       //? role diye guard korar jonno

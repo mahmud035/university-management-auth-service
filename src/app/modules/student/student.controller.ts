@@ -12,9 +12,6 @@ const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, studentFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
 
-  // console.log(filters);
-  // console.log(paginationOptions);
-
   const result = await StudentService.getAllStudents(
     filters,
     paginationOptions
