@@ -1,9 +1,9 @@
 import express from 'express';
-import validateRequest from '../../middlewares/validateRequest';
-import { AuthValidation } from './auth.validation';
-import { AuthController } from './auth.controller';
-import auth from '../../middlewares/auth';
 import { ENUM_USER_ROLL } from '../../../enums/user';
+import auth from '../../middlewares/auth';
+import validateRequest from '../../middlewares/validateRequest';
+import { AuthController } from './auth.controller';
+import { AuthValidation } from './auth.validation';
 
 const router = express.Router();
 
@@ -31,7 +31,7 @@ router.post(
   AuthController.changePassword
 );
 
-// WARNING: NOTE: 19-4 Alternative way to change password.
+// NOTE: 19-4 Alternative way to change password.
 router.post(
   '/change-password-alternative-way',
   validateRequest(AuthValidation.changePasswordZodSchema),

@@ -22,7 +22,7 @@ const auth =
     try {
       // console.log(requiredRoles);
 
-      //* (i) get authorization token
+      //* Step 1: Get authorization token
       const token = req.headers.authorization;
       // console.log('Get Token:', token);
 
@@ -30,7 +30,7 @@ const auth =
         throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized.');
       }
 
-      //* (ii) verify token
+      //* Step 2: Verify token
       let verifiedUser = null;
 
       verifiedUser = jwtHelper.verifyToken(
