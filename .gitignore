@@ -1,8 +1,9 @@
 node_modules
 dist
-um-sample-data
 .env
 .env.local
 .husky
 .vercel
 .vscode
+logs
+um-sample-data

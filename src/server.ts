@@ -2,12 +2,7 @@ import { Server } from 'http';
 import mongoose from 'mongoose';
 import app from './app';
 import config from './config/index';
-
-//* Handle Uncaught Exception
-process.on('uncaughtException', (error) => {
-  console.log(`Uncaught Exception is detected...`, error);
-  process.exit(1);
-});
+import { errorLogger, logger } from './shared/logger';
 
 let server: Server;
 
@@ -15,33 +10,39 @@ let server: Server;
 const dbConnect = async () => {
   try {
     await mongoose.connect(config.database_url as string);
-    console.log(`Database Connected`);
+    logger.info('✅ Database Connected');
     server = app.listen(config.port, () =>
-      console.log(`Server Up and Running`)
+      logger.info(`🚀 Server Up and Running`)
     );
   } catch (error) {
-    console.log(`Failed to connect database`, error);
+    const err = error as Error;
+    errorLogger.error(`Failed to connect to database: ${err.message}`, {
+      stack: err.stack,
+    });
+    process.exit(1);
   }
-
-  //* Handle Unhandled Rejection
-  process.on('unhandledRejection', (error) => {
-    console.log(
-      `Unhandled Rejection is detected, we are closing our server...`,
-      error
-    );
-
-    if (server) {
-      server.close(() => {
-        console.log(error);
-        process.exit(1);
-      });
-    } else process.exit(1);
-  });
 };
 
 dbConnect();
 
+process.on('uncaughtException', (error) => {
+  errorLogger.error(`Uncaught Exception: ${error.message}`, {
+    stack: error.stack,
+  });
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+  errorLogger.error(`Unhandled Rejection: ${reason}`, {
+    stack: reason instanceof Error ? reason.stack : null,
+  });
+  process.exit(1);
+});
+
+//* Graceful Shutdown
 process.on('SIGTERM', () => {
-  console.log('SIGTERM is received');
-  if (server) server.close();
+  logger.info('SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    logger.info('HTTP server closed');
+  });
 });

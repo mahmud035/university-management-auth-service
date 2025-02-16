@@ -18,10 +18,6 @@ app.use(morgan('dev'));
 //* Application Routes
 app.use('/api/v1', ApplicationRoutes);
 
-// Before:
-// app.use('/api/v1/users', UserRoutes);
-// app.use('/api/v1/academic-semesters', AcademicSemesterRoutes);
-
 //* Testing
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {
 //   throw new Error('Testing Error logger');

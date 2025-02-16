@@ -17,7 +17,15 @@ const validateRequest =
       next(error);
     }
   };
+
 export default validateRequest;
 
 // NOTE: Work flow
-// middleware --> validateRequest(userZodSchema) => async(req, res, next)
+// middleware -> validateRequest(userZodSchema) => async(req, res, next)
+
+/**
+ * It’s a higher-order function that takes a `Zod` schema.
+ * Validates request data (`body`, `query`, `params`, `cookies`).
+ * Calls `next()` if valid, otherwise forwards the error.
+ * Improves maintainability by centralizing validation logic.
+ */

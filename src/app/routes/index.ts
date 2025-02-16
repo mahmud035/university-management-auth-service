@@ -52,8 +52,8 @@ const moduleRoutes = [
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
+export default router;
+
 // Before:
 // router.use('/users', UserRoutes);
 // router.use('/academic-semesters', AcademicSemesterRoutes);
-
-export default router;
