@@ -16,7 +16,7 @@ const dbConnect = async () => {
     );
   } catch (error) {
     const err = error as Error;
-    errorLogger.error(`Failed to connect to database: ${err.message}`, {
+    errorLogger.error(`❌ Failed to connect to database: ${err.message}`, {
       stack: err.stack,
     });
     process.exit(1);
@@ -46,3 +46,10 @@ process.on('SIGTERM', () => {
     logger.info('HTTP server closed');
   });
 });
+
+// try {
+//   throw new Error('Testing error logger');
+// } catch (error) {
+//   const err = error as Error;
+//   errorLogger.error(`❌ Failed to connect to database: ${err.message}`);
+// }
