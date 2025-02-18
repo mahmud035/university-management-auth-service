@@ -11,7 +11,11 @@
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
-
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
   "rules": {
     "no-unused-vars": "error",
     "prefer-const": "error",
@@ -20,12 +24,6 @@
     "no-unreachable": "error",
     // "no-console": "warn",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"]
-  },
-
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
   },
   "globals": {
     "process": "readonly"
