@@ -27,13 +27,8 @@ export const logger = createLogger({
     }),
     // Daily Rotate File for Success Logs
     new DailyRotateFile({
-      filename: path.join(
-        process.cwd(),
-        'logs',
-        'winston',
-        'successes',
-        'app-%DATE%-success.log'
-      ),
+      dirname: path.join(process.cwd(), 'logs', 'winston', 'successes'),
+      filename: 'app-%DATE%-success.log',
       datePattern: 'YYYY-MM-DD', // Standard date pattern
       zippedArchive: true,
       maxSize: '20m', // 20MB
@@ -73,6 +68,8 @@ export const errorLogger = createLogger({
   ],
 });
 
-// logs/winston/
-// successes/success.log
-// errors/error.log
+/**
+ * logs/winston/
+ * - successes/success.log
+ * - errors/error.log
+ */
