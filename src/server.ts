@@ -15,10 +15,7 @@ const dbConnect = async () => {
       logger.info(`🚀 Server Up and Running`)
     );
   } catch (error) {
-    const err = error as Error;
-    errorLogger.error(`❌ Failed to connect to database: ${err.message}`, {
-      stack: err.stack,
-    });
+    errorLogger.error(`❌ Failed to connect to database: ${error}`);
     process.exit(1);
   }
 };
@@ -32,9 +29,9 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason) => {
-  errorLogger.error(`Unhandled Rejection: ${reason}`, {
-    stack: reason instanceof Error ? reason.stack : null,
+process.on('unhandledRejection', (error) => {
+  errorLogger.error(`Unhandled Rejection: ${error}`, {
+    stack: error instanceof Error ? error.stack : null,
   });
   process.exit(1);
 });
@@ -46,10 +43,3 @@ process.on('SIGTERM', () => {
     logger.info('HTTP server closed');
   });
 });
-
-// try {
-//   throw new Error('Testing error logger');
-// } catch (error) {
-//   const err = error as Error;
-//   errorLogger.error(`❌ Failed to connect to database: ${err.message}`);
-// }

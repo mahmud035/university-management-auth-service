@@ -18,11 +18,6 @@ app.use(morgan('dev'));
 //* Application Routes
 app.use('/api/v1', ApplicationRoutes);
 
-//* Testing
-// app.get('/', (req: Request, res: Response, next: NextFunction) => {
-//   throw new Error('Testing Error logger');
-// });
-
 //* Global Error Handler
 app.use(globalErrorHandler);
 

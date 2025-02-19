@@ -16,28 +16,28 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
   } ${hour}:${minutes}:${seconds} [${label}] ${level.toUpperCase()}: ${message}`;
 });
 
-// Success Logger
+// Success logger
 export const logger = createLogger({
   level: 'info',
   format: combine(label({ label: 'APP' }), timestamp(), myFormat),
   transports: [
-    // Console Transport
+    // Console transport
     new transports.Console({
       format: combine(format.colorize(), myFormat), // Colorized logs for console
     }),
-    // Daily Rotate File for Success Logs
+    // Daily rotate file for success logs
     new DailyRotateFile({
       dirname: path.join(process.cwd(), 'logs', 'winston', 'successes'),
       filename: 'app-%DATE%-success.log',
       datePattern: 'YYYY-MM-DD', // Standard date pattern
       zippedArchive: true,
-      maxSize: '20m', // 20MB
+      maxSize: '20m', // 20 MB
       maxFiles: '3d', // Retain logs for 3 days
     }),
   ],
 });
 
-// Error Logger
+// Error logger
 export const errorLogger = createLogger({
   level: 'error',
   format: combine(
@@ -47,11 +47,11 @@ export const errorLogger = createLogger({
     myFormat
   ),
   transports: [
-    // Console Transport
+    // Console transport
     new transports.Console({
       format: combine(format.colorize(), myFormat), // Colorized logs for console
     }),
-    // Daily Rotate File for Error Logs
+    // Daily rotate file for error logs
     new DailyRotateFile({
       filename: path.join(
         process.cwd(),
@@ -69,7 +69,11 @@ export const errorLogger = createLogger({
 });
 
 /**
- * logs/winston/
- * - successes/success.log
- * - errors/error.log
+ * 📂 logs/winston/
+ *  📂 successes/
+ *      📄 app-%DATE%-success.log
+ *  📂 errors/
+ *      📄 app-%DATE%-error.log
+ *      📄 app-%DATE%-exceptions.log
+ *      📄 app-%DATE%-rejections.log
  */
