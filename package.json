@@ -2,6 +2,8 @@
   "name": "university-management-auth",
   "version": "1.0.0",
   "description": "This is the authentication part of the University Management System Project.",
+  "author": "mahmud",
+  "license": "ISC",
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsnd --respawn src/server.ts",
@@ -13,8 +15,6 @@
     "prettier:fix": "prettier --write .",
     "lint-prettier": "yarn lint:check && yarn prettier:check"
   },
-  "author": "mahmud",
-  "license": "ISC",
   "lint-staged": {
     "src/**/*.ts": "yarn lint-prettier"
   },
