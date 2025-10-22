@@ -5,7 +5,7 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 const { combine, timestamp, label, printf, errors } = format;
 
 // Custom log format
-const myFormat = printf(({ level, message, label, timestamp }) => {
+const logFormat = printf(({ level, message, label, timestamp }) => {
   const date = new Date(timestamp as string | number);
   const hour = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -19,11 +19,10 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 // Success logger
 export const logger = createLogger({
   level: 'info',
-  format: combine(label({ label: 'APP' }), timestamp(), myFormat),
+  format: combine(label({ label: 'APP' }), timestamp(), logFormat),
   transports: [
-    // Console transport
     new transports.Console({
-      format: combine(format.colorize(), myFormat), // Colorized logs for console
+      format: combine(format.colorize(), logFormat), // Colorized logs for console
     }),
     // Daily rotate file for success logs
     new DailyRotateFile({
@@ -44,14 +43,12 @@ export const errorLogger = createLogger({
     label({ label: 'ERROR' }),
     timestamp(),
     errors({ stack: true }),
-    myFormat
+    logFormat
   ),
   transports: [
-    // Console transport
     new transports.Console({
-      format: combine(format.colorize(), myFormat), // Colorized logs for console
+      format: combine(format.colorize(), logFormat),
     }),
-    // Daily rotate file for error logs
     new DailyRotateFile({
       filename: path.join(
         process.cwd(),
@@ -60,10 +57,10 @@ export const errorLogger = createLogger({
         'errors',
         'app-%DATE%-error.log'
       ),
-      datePattern: 'YYYY-MM-DD', // Standard date pattern
+      datePattern: 'YYYY-MM-DD',
       zippedArchive: true,
-      maxSize: '20m', // 20MB
-      maxFiles: '3d', // Retain error logs for 3 days
+      maxSize: '20m',
+      maxFiles: '3d',
     }),
   ],
 });
