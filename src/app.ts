@@ -10,16 +10,13 @@ const app: Application = express();
 
 //* Middleware
 app.use(cors());
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //* Application Routes
 app.use('/api/v1', ApplicationRoutes);
-
-//* Global Error Handler
-app.use(globalErrorHandler);
 
 //* Handle Not Found Route
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -36,5 +33,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
   next();
 });
+
+//* Global Error Handler
+app.use(globalErrorHandler);
 
 export default app;
